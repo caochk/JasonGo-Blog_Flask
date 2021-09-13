@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-sm-9 col-12" style="padding: 0 10px" id="left">
+        <div class="row col-12 article-detail">
+            <!--文章标题、收藏按钮所在行-->
+            <div class="col-9 title">
+                {% set article = result[0] %}
+                {{ article.headline }}
+            </div>
+            <div class="col-3 favorite">
+                <label>
+                    <span class="oi oi-heart" aria-hidden="true"></span>
+                    收藏本文
+                </label>
+            </div>
+
+            <!--作者、日期、阅读数等内容所在行-->
+            <div class="col-12 info">
+                作者：{{ result.nickname }}&nbsp;&nbsp;&nbsp;类别：{{ article_type[article.category | string] }}&nbsp;&nbsp;&nbsp;
+                日期：{{ article.createtime }}&nbsp;&nbsp;&nbsp;
+                阅读：{{ article.readcount }} 次&nbsp;&nbsp;&nbsp;消耗积分：{{ article.credit }} 分
+            </div>
+
+            <!--文章正文所在行-->
+            <div class="col-12 content">
+                {{ article.content | safe }}
+            </div>
+
+            <!--编辑内容、收藏本文所在行-->
+            <div class="col-12 favorite" style="margin: 30px 0px">
+                <label>
+                    <span class="oi oi-pencil" aria-hidden="true"></span>
+                    编辑内容 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </label>
+                <label>
+                    <span class="oi oi-heart" aria-hidden="true"></span>
+                    收藏本文
+                </label>
+            </div>
+        </div>
+
+        <!--版权所有、上一篇、下一篇板块-->
+        <div class="col-12 article-nav">
+            <div>
+                <a href="http://www.woniunote.com/article/607">版权所有，转载本站文章请注明出处：Jason's 博客系统</a>
+            </div>
+            <div>
+                上一篇：
+                <a href="#">报告：阿多比学员出关了！</a>
+            </div>
+            <div>
+                下一篇：
+                <a href="#">培训期间，从未12点之前离开过教室的他入职了，月薪155K！</a>
+            </div>
+        </div>
+
+        <!--发表评论板块-->
+        <div class="col-12 article-comment">
+            <div class="col-12 row">
+                <!--昵称行-->
+                <div class="col-sm-2 col-12">
+                    <label for="nickname">你的昵称：</label>
+                </div>
+                <div class="col-sm-10 col-12" style="padding: 0 0 0 0px">
+                    <input type="text" class="form-control" id="nickname" value="你还未登录，登录后可评论。" readonly>
+                </div>
+                <!--评论行-->
+                <div class="col-sm-2 col-12">
+                    <label for="comment">你的评论：</label>
+                </div>
+                <div class="col-sm-10 col-12" style="padding: 0 0 0 0px;">
+                    <textarea class="form-control" id="comment" cols="40" rows="5">请留下你的评论。</textarea>
+                </div>
+                <!--未登录，登录行-->
+                <div class="col-12 row submit-comment">
+                    <div class="col-sm-10 col-12" style="text-align: left; color: #95999c;">
+                        提示：登录后会有新天地！
+                    </div>
+                    <div class="col-sm-2 col-12" style="padding: 0 0; text-align: right">
+                        <button type="button" class="btn btn-primary">提交评论</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--评论列表-->
+            <div class="row col-12 list">
+                <div class="col-2 icon">
+                    <img src="/img/comment1.png" alt="comment" class="img-fluid" style="width: 300px">
+                </div>
+                <div class="col-10 comment">
+                    <div class="row col-12 commenter">
+                        <div class="col-7">
+                            艾AA
+                        </div>
+                        <div class="col-5 reply">
+                            <label>
+                                <span class="oi oi-thumb-up" aria-hidden="true"></span>
+                                &nbsp;赞成&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <label>
+                                <span class="oi oi-thumb-down" aria-hidden="true"></span>
+                                &nbsp;反对
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 content">
+                        这是一条有温度的回复。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--引入页中右侧-->
+    {% include 'side.html' %}
+{% endblock %}

@@ -1,0 +1,55 @@
+<!--页中右侧-->
+<div class="col-sm-3 col-12" style="padding: 0px 10px">
+    <div class="row col-12 search-bar form-group">
+        <!--搜索框-->
+        <div class="col-8">
+            <input type="text" class="form-control" id="keyword" placeholder="请输入关键字" onkeyup="doSearch(event)"/>
+        </div>
+        <div class="col-4" style="text-align: right">
+            <button type="button" class="btn btn-primary" onclick="doSearch(null)">搜索</button>
+        </div>
+    </div>
+    <!--最新文章板块-->
+    <div class="col-12 side">
+        <div class="tip">最新文章</div>
+        <ul>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+        </ul>
+    </div>
+    <!--特别推荐板块-->
+    <div class="col-12 side">
+        <div class="tip">特别推荐</div>
+        <ul>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+            <li><a href="#">1.web系统框架随笔</a></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function doSearch(event) {
+        // 如果event既不是null，且对应的可以凑的也不是13，那就说明用户即未按搜索按钮，也非通过回车键发起请求，所以置之不理
+        if (event != null && event.keyCode != 13) {
+            return false;
+        }
+        // event为null（即不是通过按回车键而是直接按的搜索按钮）或event的keycode是13（通过按回车键），就做出下列响应
+        // 利用jQuery的ID选择器获取搜索框的值，并去除前后的空格
+        var keyword = $.trim($("#keyword").val());
+        // 若用户输入的关键字为空、全由空格组成、包含数据库模糊搜索用到的%，那么就判断用户的输入无效并通过bootbox提示
+        if (keyword.length == 0 || keyword.length > 10 || keyword.indexOf("%") >= 0) {
+            bootbox.alert({'title': '错误提示', 'message': '输入的搜索关键字不合法'});
+            $("#keyword").focus();  // 使文本框获取到焦点，来方便用户输入
+            return false;
+        }
+        // 用户的输入在前端校验通过，就跳转到相应关键字搜索结果页面的第一页
+        // side页面永远都只负责跳转到第一页，搜索结果页面的后续页面跳转交由search页面中的分页代码来完成
+        location.href = '/search/1-' + keyword;
+    }
+</script>
